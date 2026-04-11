@@ -129,7 +129,7 @@ export default function Home() {
                 <Link className="rounded-xl border border-orange-300 bg-white px-4 py-2 font-medium text-stone-800" href="/login">
               Login
             </Link>
-                <Link className="rounded-xl bg-gradient-to-r from-brand to-brand-2 px-4 py-2 font-medium text-white" href="/register">
+                <Link className="rounded-xl bg-linear-to-r from-brand to-brand-2 px-4 py-2 font-medium text-white" href="/register">
               Register
             </Link>
           </div>
@@ -192,7 +192,7 @@ export default function Home() {
             <button
               type="submit"
               disabled={loading}
-              className="rounded-xl bg-gradient-to-r from-brand to-brand-2 px-5 py-2.5 font-semibold text-white transition hover:brightness-105 disabled:opacity-70"
+              className="rounded-xl bg-linear-to-r from-brand to-brand-2 px-5 py-2.5 font-semibold text-white transition hover:brightness-105 disabled:opacity-70"
             >
               {loading ? "Saving..." : "Create Video"}
             </button>
@@ -207,14 +207,14 @@ export default function Home() {
             No videos yet.
           </div>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {videos.map((video) => (
-              <article key={video._id} className="overflow-hidden rounded-2xl border border-orange-200 bg-card shadow-[0_18px_40px_-34px_rgba(106,57,27,0.5)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_50px_-30px_rgba(106,57,27,0.55)]">
+              <article key={video._id} className="mx-auto w-full max-w-xs overflow-hidden rounded-2xl border border-orange-200 bg-card shadow-[0_18px_40px_-34px_rgba(106,57,27,0.5)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_50px_-30px_rgba(106,57,27,0.55)]">
                 <video
                   src={video.videoUrl}
                   poster={video.thumbnailUrl}
                   controls
-                  className="h-56 w-full bg-black object-cover"
+                  className="aspect-9/16 w-full bg-black object-cover"
                 />
                 <div className="p-4">
                   <h3 className="text-lg font-semibold text-stone-900">{video.title}</h3>
