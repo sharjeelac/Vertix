@@ -57,6 +57,7 @@ export async function POST(request: NextRequest){
         const newVideo = await Video.create(videoData)
         return NextResponse.json(newVideo, { status: 201 })
     } catch (error) {
+        console.error("Failed to create video", error)
         return NextResponse.json({ error: "Failed to create video" }, { status: 500 })
     }
 }

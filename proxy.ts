@@ -2,7 +2,7 @@ import withAuth from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
 export default withAuth(
-  async function proxy(req) {
+  async function proxy() {
     return NextResponse.next();
   },
   {
@@ -16,7 +16,7 @@ export default withAuth(
         ) {
           return true;
          }
-        if(pathname === '/' || pathname.startsWith("/api/videos")){
+        if(pathname === '/' || pathname.startsWith("/api/video")){
             return true
         }
 
@@ -27,5 +27,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/(?!next/static|_next/image|favicon.ico|publlic/).*"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

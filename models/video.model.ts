@@ -5,7 +5,7 @@ const VIDEO_DIMENSIONS = {
   width: 1920,
 } as const;
 
-export interface IVideo extends Document {
+export interface IVideo {
   title: string;
   description: string;
   videoUrl: string;

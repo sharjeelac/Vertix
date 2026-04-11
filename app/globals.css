@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fffaf4;
+  --foreground: #1f1c19;
+  --muted: #695a4f;
+  --card: #fffdf8;
+  --brand: #d6653a;
+  --brand-2: #f3a43b;
+  --ring: #f0c5a7;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-brand: var(--brand);
+  --color-brand-2: var(--brand-2);
+  --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), "Segoe UI", sans-serif;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 42rem;
+  height: 42rem;
+  border-radius: 9999px;
+  filter: blur(52px);
+  opacity: 0.35;
+  z-index: -1;
+  animation: drift 18s ease-in-out infinite;
+}
+
+body::before {
+  background: #ffd7b8;
+  top: -12rem;
+  left: -10rem;
+}
+
+body::after {
+  background: #ffe8a6;
+  bottom: -16rem;
+  right: -10rem;
+  animation-delay: -6s;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(16px, -16px, 0);
+  }
 }

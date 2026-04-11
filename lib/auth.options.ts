@@ -2,6 +2,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { AuthOptions } from "next-auth";
 import User from "@/models/user.model";
 import bcrypt from "bcryptjs";
+import { connectDB } from "@/lib/mongodb";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -12,14 +13,16 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (credentials?.email || credentials?.password) {
-          throw new Error("Missing Email or Password");
+        if (!credentials?.email || !credentials?.password) {
+          return null;
         }
 
         try {
+          await connectDB();
+
           const user = await User.findOne({ email: credentials.email });
           if (!user) {
-            throw new Error("User not found");
+            return null;
           }
 
           const isValid = await bcrypt.compare(
@@ -28,7 +31,7 @@ export const authOptions: AuthOptions = {
           );
 
           if (!isValid) {
-            throw new Error("Invalid Password");
+            return null;
           }
 
           return {
@@ -36,8 +39,8 @@ export const authOptions: AuthOptions = {
             email: user.email,
           };
         } catch (error) {
-          console.error("auth error");
-          throw error;
+          console.error("auth error", error);
+          return null;
         }
       },
     }),

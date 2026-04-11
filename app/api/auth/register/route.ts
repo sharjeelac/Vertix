@@ -8,17 +8,17 @@ export async function POST(request: NextRequest) {
 
     if (!email || !password) {
       return NextResponse.json(
-        { error: "Email and Password are Required" },
-        { status: 401 },
+        { success: false, error: "Email and password are required" },
+        { status: 400 },
       );
     }
 
     await connectDB();
 
-    const exitingUser = await User.findOne({ email });
-    if (exitingUser) {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return NextResponse.json(
-        { error: "User ALready Exits" },
+        { success: false, error: "User already exists" },
         { status: 400 },
       );
     }
@@ -29,14 +29,14 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(
-      { message: "User registered Successfully" },
+      { success: true, message: "User registered successfully" },
       { status: 201 },
     );
   } catch (error) {
     console.error("Registration Error", error);
     return NextResponse.json(
-      { error: "User registeration failed" },
-      { status: 501 },
+      { success: false, error: "User registration failed" },
+      { status: 500 },
     );
   }
 }

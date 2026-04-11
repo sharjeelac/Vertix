@@ -9,8 +9,12 @@ import {
 } from "@imagekit/next";
 import React, { useRef, useState } from "react";
 
+type UploadResult = {
+    url?: string;
+}
+
 interface FileUploadProps{
-    onSuccess: (res:any)=>void
+    onSuccess: (res: UploadResult)=>void
     onProgress: (progress: number)=>void
     fileType?: "image" | "video"
 }
